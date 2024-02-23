@@ -7,21 +7,19 @@ const app = express();
 
 require('dotenv').config();
 
-
-// Connect to MongoDB
-// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect(process.env.MONGODB_URI);
-// mongoose.connect('mongodb+srv://laicheehoong:mKQpuTCVC3KvWwnj@cluster0.6dczomc.mongodb.net/YoutubeUser?retryWrites=true&w=majority&appName=Cluster0');
-
-
-app.use(express.json());
-
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*'); // You can restrict this to specific domains for security
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
   });
+
+mongoose.connect(process.env.MONGODB_URI);
+
+
+app.use(express.json());
+
+
 
 
 // Routes
