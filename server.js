@@ -16,6 +16,14 @@ mongoose.connect(process.env.MONGODB_URI);
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // You can restrict this to specific domains for security
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+  });
+
+
 // Routes
 app.use('/users', userRoutes);
 
