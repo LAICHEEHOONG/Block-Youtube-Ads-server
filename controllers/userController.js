@@ -2,11 +2,14 @@
 const YoutubeUser = require('../models/YoutubeUser')
 
 exports.createUser = async (req, res) => {
-  const { accountId } = req.body;
+  // const { accountId } = req.body;
+  const { accountName } = req.body;
+
 
   try {
     // Check if the accountId already exists
-    const existingUser = await YoutubeUser.findOne({ accountId });
+    // const existingUser = await YoutubeUser.findOne({ accountId });
+    const existingUser = await YoutubeUser.findOne({ accountName });
 
     if (existingUser) {
       // If accountId exists, send a response indicating a conflict
