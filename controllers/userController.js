@@ -11,13 +11,17 @@ exports.createUser = async (req, res) => {
     if (existingUser) {
       // If accountId exists, send a response indicating a conflict
       console.log(existingUser)
-      return res.status(409).json({ message: 'Account with this accountId already exists', accountInfo: existingUser });
+      // return res.status(409).json({ message: 'Account with this accountId already exists', accountInfo: existingUser });
+      return res.json({ message: 'Account with this accountId already exists', accountInfo: existingUser });
+
     }
 
     // If accountId does not exist, create and save the new user
     const newUser = new YoutubeUser(req.body);
     const user = await newUser.save();
-    res.status(201).json({ message: 'New account register successful', accountInfo: user });
+    // res.status(201).json({ message: 'New account register successful', accountInfo: user });
+    res.json({ message: 'New account register successful', accountInfo: user });
+
   } catch (error) {
     // Handle any errors that occur during the process
     console.error('Error creating user:', error);
