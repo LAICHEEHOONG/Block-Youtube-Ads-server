@@ -5,10 +5,6 @@ const YoutubeUserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  accountId: {
-    type: String,
-    required: true,
-  },
   startDate: {
     type: Date,
     required: true
