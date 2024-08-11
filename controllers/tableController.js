@@ -38,23 +38,48 @@
 
 const Table = require('../models/Table')
 
-exports.uploadTableData = async (req, res) => {
-  console.log(req.body)
-    const { tableHtml } = req.body;
+// exports.uploadTableData = async (req, res) => {
+//   console.log(req.body)
+//     const { tableHtml } = req.body;
   
-    try {
-      // Create a new Table document
-      const newTable = new Table({
+//     try {
+//       // Create a new Table document
+//       const newTable = new Table({
+//         tableData: tableHtml,
+//         updateDate: new Date() // Set the current date
+//       });
+  
+//       // Save the document to the database
+//       await newTable.save();
+  
+//       res.status(201).json({ message: "Table data uploaded successfully" });
+//     } catch (error) {
+//       console.error("Error updating table data:", error);
+//       res.status(500).json({ message: "Error updating table data" });
+//     }
+//   };
+
+
+
+exports.uploadTableData = async (req, res) => {
+  console.log(req.body);
+  const { tableHtml } = req.body;
+  const tableId = '66b86d1c5ed2942d8b4813b7'; // The ID to be updated
+
+  try {
+    // Find the document by ID and update it
+    const updatedTable = await Table.findByIdAndUpdate(
+      tableId, // The ID of the document to update
+      {
         tableData: tableHtml,
         updateDate: new Date() // Set the current date
-      });
-  
-      // Save the document to the database
-      await newTable.save();
-  
-      res.status(201).json({ message: "Table data uploaded successfully" });
-    } catch (error) {
-      console.error("Error updating table data:", error);
-      res.status(500).json({ message: "Error updating table data" });
-    }
-  };
+      },
+      { new: true, upsert: true } // Options: new returns the updated document, upsert creates it if it doesn't exist
+    );
+
+    res.status(200).json({ message: "Table data updated successfully", table: updatedTable });
+  } catch (error) {
+    console.error("Error updating table data:", error);
+    res.status(500).json({ message: "Error updating table data" });
+  }
+};
