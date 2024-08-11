@@ -2,6 +2,7 @@
 const YoutubeUser = require('../models/YoutubeUser')
 
 exports.createUser = async (req, res) => {
+  console.log(req.body)
 
   const { accountName } = req.body;
 
